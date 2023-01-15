@@ -1,30 +1,26 @@
 import { dbService } from "myBase";
 import React, { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  // 뉴잇 가져오기
-  const getNweets = async () => {
-    const dbnweets = await dbService.collection("nweets").get();
-    dbnweets.forEach((doc) => {
-      const NweetObject = {
-        ...doc.data(),
-        id: doc.id,
-      };
-      setNweets((prev) => [NweetObject, ...prev]);
-    });
-  };
   // 뉴잇 실시간 업데이트
   useEffect(() => {
-    getNweets();
+    dbService.collection("nweets").onSnapshot((snapShot) => {
+      const nweetsArray = snapShot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNweets(nweetsArray);
+    });
   }, []);
   // firebase db에 nweet 추가
   const onSubmit = async (event) => {
     event.preventDefault();
     await dbService.collection("nweets").add({
-      nweet,
+      text: nweet,
       createdAt: Date.now(),
+      user: userObj.uid,
     });
     setNweet("");
   };
@@ -54,7 +50,7 @@ const Home = () => {
           {nweets.map((nweet) => {
             return (
               <li key={nweet.id}>
-                <h4>{nweet.nweet}</h4>
+                <h4>{nweet.text}</h4>
               </li>
             );
           })}

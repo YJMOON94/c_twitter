@@ -7,11 +7,13 @@ function App() {
   const auth = getAuth();
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
+        setUserObj(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -21,7 +23,11 @@ function App() {
 
   return (
     <>
-      {init ? <Routers isLoggedIn={isLoggedIn} /> : "initializing now..."}
+      {init ? (
+        <Routers isLoggedIn={isLoggedIn} userObj={userObj} />
+      ) : (
+        "initializing now..."
+      )}
       <footer>&copy; {new Date().getFullYear()} copy twitter</footer>
     </>
   );
