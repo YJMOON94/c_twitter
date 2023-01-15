@@ -11,6 +11,7 @@ const Routers = ({ isLoggedIn }) => {
     <Router>
       {isLoggedIn && <Nav />}
       <Routes>
+        {/* isLoggedIn true 일때 home, profile 링크, 아닐때 인증 컴포넌트 */}
         {isLoggedIn ? (
           <>
             <Route path="/" element={<Home />}></Route>

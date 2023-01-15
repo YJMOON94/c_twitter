@@ -45,6 +45,7 @@ const Auth = () => {
   // 로그인, 회원가입 변경
   const toggleAccount = () => setNewAccount((prev) => !prev);
   // 구글, 깃헙 로그인
+  // 구굴, 깃헙 이메일이 같을때 같은 이메일로 회원가입 안되는 오류 존재
   const onSocialClick = async (event) => {
     event.preventDefault();
     const {
@@ -53,12 +54,8 @@ const Auth = () => {
     let provider;
     if (name === "google") {
       provider = new GoogleAuthProvider();
-      // provider.addScope("repo");
-      // const result = await signInWithPopup(auth, provider);
     } else if (name === "github") {
       provider = new GithubAuthProvider();
-      // provider.addScope("repo");
-      // const result = await signInWithPopup(auth, provider);
     }
 
     await signInWithPopup(auth, provider);
