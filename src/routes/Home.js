@@ -37,7 +37,6 @@ const Home = () => {
     setNweet(value);
   };
 
-  console.log(nweets);
   return (
     <div>
       <form onSubmit={onSubmit}>
