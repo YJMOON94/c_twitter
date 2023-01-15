@@ -53,8 +53,12 @@ const Auth = () => {
     let provider;
     if (name === "google") {
       provider = new GoogleAuthProvider();
+      // provider.addScope("repo");
+      // const result = await signInWithPopup(auth, provider);
     } else if (name === "github") {
       provider = new GithubAuthProvider();
+      // provider.addScope("repo");
+      // const result = await signInWithPopup(auth, provider);
     }
 
     await signInWithPopup(auth, provider);
@@ -92,7 +96,7 @@ const Auth = () => {
           Continue With Google
         </button>
         <button name="github" onClick={onSocialClick}>
-          COntinue Wtih Github
+          Continue Wtih Github
         </button>
       </div>
     </div>
