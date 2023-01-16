@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Routers from "components/Router";
-import { authService } from "myBase";
+// import { authService } from "myBase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {

@@ -1,5 +1,6 @@
 import { dbService } from "myBase";
 import React, { useEffect, useState } from "react";
+import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
@@ -45,17 +46,18 @@ const Home = ({ userObj }) => {
         />
         <input type="submit" value="Nweet" />
       </form>
-      <div>
-        <ul>
-          {nweets.map((nweet) => {
-            return (
-              <li key={nweet.id}>
-                <h4>{nweet.text}</h4>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <section>
+        <h2>Nweet Section</h2>
+        {nweets.map((nweet) => {
+          return (
+            <Nweet
+              key={nweet.id}
+              nweetObj={nweet}
+              OwnId={nweet.user === userObj.uid}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 };
