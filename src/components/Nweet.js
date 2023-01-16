@@ -30,16 +30,20 @@ const Nweet = ({ nweetObj, OwnId }) => {
     <article key={nweetObj.id}>
       {editing ? (
         <>
-          <form onSubmit={onSubmit}>
-            <input
-              value={newNweet}
-              placeholder="What is your nweet"
-              required
-              onChange={onChange}
-            />
-            <input type="submit" value="Update Nweet" />
-          </form>
-          <button onClick={toggleEditClick}>Cancle</button>
+          {OwnId && (
+            <>
+              <form onSubmit={onSubmit}>
+                <input
+                  value={newNweet}
+                  placeholder="What is your nweet"
+                  required
+                  onChange={onChange}
+                />
+                <input type="submit" value="Update Nweet" />
+              </form>
+              <button onClick={toggleEditClick}>Cancle</button>
+            </>
+          )}
         </>
       ) : (
         <>
