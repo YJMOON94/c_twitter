@@ -1,4 +1,4 @@
-import { dbService } from "myBase";
+import { dbService, storageService } from "myBase";
 import React, { useState } from "react";
 
 const Nweet = ({ nweetObj, OwnId }) => {
@@ -7,8 +7,14 @@ const Nweet = ({ nweetObj, OwnId }) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("Are tou sure");
     if (ok) {
-      await dbService.doc(`nweets/${nweetObj.id}`).delete();
-      console.log(ok);
+      try {
+        await dbService.doc(`nweets/${nweetObj.id}`).delete();
+        if (nweetObj.attachmentUrl !== "") {
+          await storageService.refFromURL(nweetObj.attachmentUrl).delete();
+        }
+      } catch (error) {
+        window.alert("네트워크 오류");
+      }
     }
   };
   const toggleEditClick = () => setEditing((prev) => !prev);
@@ -47,6 +53,10 @@ const Nweet = ({ nweetObj, OwnId }) => {
         </>
       ) : (
         <>
+          {nweetObj.attachmentUrl && (
+            <img src={nweetObj.attachmentUrl} width="50px" />
+          )}
+
           <h4>{nweetObj.text}</h4>
           {OwnId && (
             <>
