@@ -6,10 +6,10 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Auth from "routes/Auth";
 
-const Routers = ({ isLoggedIn, userObj }) => {
+const Routers = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
-      {isLoggedIn && <Nav />}
+      {isLoggedIn && <Nav userObj={userObj} />}
       <Routes>
         {/* isLoggedIn true 일때 home, profile 링크, 아닐때 인증 컴포넌트 */}
         {isLoggedIn ? (
@@ -17,7 +17,7 @@ const Routers = ({ isLoggedIn, userObj }) => {
             <Route path="/" element={<Home userObj={userObj} />}></Route>
             <Route
               path="/profile"
-              element={<Profile userObj={userObj} />}
+              element={<Profile refreshUser={refreshUser} userObj={userObj} />}
             ></Route>
           </>
         ) : (

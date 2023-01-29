@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Routers from "components/Router";
-// import { authService } from "myBase";
+import { authService } from "myBase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
@@ -17,10 +17,19 @@ function App() {
     });
   }, []);
 
+  // displayName 실시간 업데이트
+  const refreshUser = () => {
+    setUserObj(authService.currentUser);
+  };
+
   return (
     <>
       {init ? (
-        <Routers isLoggedIn={Boolean(userObj)} userObj={userObj} />
+        <Routers
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
       ) : (
         "initializing now..."
       )}
