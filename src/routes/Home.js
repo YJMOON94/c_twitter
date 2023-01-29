@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
   // 뉴잇 실시간 업데이트
   useEffect(() => {
     dbService.collection("nweets").onSnapshot((snapShot) => {
