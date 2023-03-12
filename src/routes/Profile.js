@@ -9,6 +9,7 @@ const Profile = ({ userObj, refreshUser }) => {
   const onLogOutClick = () => {
     authService.signOut();
     navigate("/");
+    refreshUser();
   };
 
   const getMyNweets = async () => {
